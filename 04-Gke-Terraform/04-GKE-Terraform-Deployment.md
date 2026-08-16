@@ -263,6 +263,82 @@ output "gke_subnet_name" {
 
 ---
 
+# Google Cloud CLI Setup in VS Code
+# Prerequisites / Important Step
+
+Before running the Google Cloud commands in VS Code:
+
+Close VS Code if it is already open.
+Right-click Visual Studio Code.
+Select Run as administrator.
+Open the Terminal in VS Code:
+Terminal → New Terminal
+Select PowerShell or Command Prompt as the terminal.
+
+Important: Run VS Code as Administrator when required by your Windows/PowerShell configuration.
+
+# Authenticate with Google Cloud
+
+```bash
+gcloud.cmd auth login
+```
+
+Used for:
+Authenticates your Google Cloud account by opening a browser login page.
+
+After successful login, your Google Cloud account will be connected to the gcloud CLI.
+
+# Set PowerShell Execution Policy
+
+```bash
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+Used for:
+Allows PowerShell scripts to run for your current Windows user.
+
+If prompted, enter:
+```bash
+Y
+```
+
+# Check Available Google Cloud Projects
+
+```bash
+gcloud projects list
+```
+
+Used for:
+Displays the Google Cloud projects that your authenticated account has access to.
+
+Example:
+
+PROJECT_ID        NAME              PROJECT_NUMBER
+my-project-123    My Project        123456789
+
+# Select Your Google Cloud Project
+
+Copy the required PROJECT_ID from the previous command and run:
+```bash
+gcloud config set project PROJECT_ID
+```
+
+Example:
+```bash
+gcloud config set project my-project-123
+```
+
+Used for:
+Sets the selected project as the default project for your gcloud commands.
+
+# Verify the Configuration
+```bash
+gcloud config list
+```
+
+Used for:
+Checks which Google account and Google Cloud project are currently configured.
+
 # Enable Required APIs
 
 ```bash
@@ -327,7 +403,7 @@ NODES           : 2
 # Configure kubectl Authentication
 
 ```bash
-gcloud container clusters get-credentials securebank-gke \ --zone asia-south1-c
+gcloud container clusters get-credentials securebank-gke --zone asia-south1-c
 ```
 
 Verify:
@@ -524,7 +600,6 @@ kubectl version --client
 ```bash
 sudo apt-get update
 
-sudo apt-get install -y kubectl
 ```
 
 Alternative:
@@ -532,6 +607,7 @@ Alternative:
 ```bash
 sudo snap install kubectl --classic
 ```
+
 
 Verify:
 
@@ -548,28 +624,34 @@ gcloud version
 ```
 
 ---
+# GCloud Authentication
 
-# Connect Jenkins VM to GKE
-
-```bash
-gcloud container clusters get-credentials securebank-gke \
---zone asia-south1-c
-```
-
-Verify:
+Authenticate the Jenkins VM with Google Cloud.
 
 ```bash
-kubectl get nodes
+gcloud auth login
+```
+Authentication Process
+Run gcloud auth login on the Jenkins VM.
+A Google Cloud login URL will be displayed.
+Open the URL in a browser.
+Login with your Google Cloud credentials.
+Google Cloud will generate an authentication code.
+Copy the code.
+Paste the code back into the Jenkins VM terminal.
+
+# Set GCloud Project
+
+Set the required GCloud project:
+```bash
+gcloud config set project Project_ID
 ```
 
-Expected:
-
-```text
-gke-securebank-nodepool-xxxxx Ready
-gke-securebank-nodepool-yyyyy Ready
+Verify the configured project:
+```bash
+gcloud config get-value project
 ```
 
----
 
 # Install GKE Authentication Plugin
 
@@ -629,6 +711,28 @@ Expected:
 ```text
 ACTIVE ACCOUNT
 * your-email@gmail.com
+```
+
+---
+
+# Connect Jenkins VM to GKE
+
+```bash
+gcloud container clusters get-credentials securebank-gke \
+--zone asia-south1-c
+```
+
+Verify:
+
+```bash
+kubectl get nodes
+```
+
+Expected:
+
+```text
+gke-securebank-nodepool-xxxxx Ready
+gke-securebank-nodepool-yyyyy Ready
 ```
 
 ---
