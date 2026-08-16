@@ -241,7 +241,7 @@ sudo nano monitoring-node-exporter-installation.yml
 Run:
 
 ```bash
-ansible-playbook -i hosts monitoring-node-exporter-installation.yml
+ansible-playbook monitoring-node-exporter-installation.yml
 ```
 
 # Verify Node Exporter Installation
@@ -249,13 +249,13 @@ ansible-playbook -i hosts monitoring-node-exporter-installation.yml
 Run:
 
 ```bash
-ansible all -i hosts -m shell -a "systemctl status node_exporter --no-pager"
+ansible all -m shell -a "systemctl status node_exporter --no-pager"
 ```
 
 Or:
 
 ```bash
-ansible all -i hosts -m shell -a "ss -tulpn | grep 9100"
+ansible all -m shell -a "ss -tulpn | grep 9100"
 ```
 
 Expected Output:
@@ -356,7 +356,7 @@ Ctrl + X
 Run:
 
 ```bash
-docker cp prometheus.yml prometheus:/etc/prometheus/prometheus.yml
+sudo docker cp prometheus.yml prometheus:/etc/prometheus/prometheus.yml
 ```
 
 ---
@@ -366,13 +366,13 @@ docker cp prometheus.yml prometheus:/etc/prometheus/prometheus.yml
 Run:
 
 ```bash
-docker restart prometheus
+sudo docker restart prometheus
 ```
 
 Verify:
 
 ```bash
-docker ps
+sudo docker ps
 ```
 
 Expected:
