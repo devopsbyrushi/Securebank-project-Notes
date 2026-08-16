@@ -123,44 +123,6 @@ http://34.xx.xx.xx
 
 ---
 
-# Deployment Health Verification
-
-Run:
-
-```bash
-kubectl describe deployment securebank -n securebank
-```
-
-Review:
-
-* Replica Status
-* Pod Status
-* Events
-* Deployment Conditions
-
-No errors should be reported.
-
----
-
-# Service Health Verification
-
-Run:
-
-```bash
-kubectl describe svc securebank-service -n securebank
-```
-
-Review:
-
-* LoadBalancer Status
-* External IP
-* Endpoints
-* Events
-
-No errors should be present.
-
----
-
 # Monitoring Stack Verification
 
 From the Monitoring Server, verify the monitoring applications.
