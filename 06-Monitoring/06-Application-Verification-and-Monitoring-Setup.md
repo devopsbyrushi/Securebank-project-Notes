@@ -339,6 +339,12 @@ scrape_configs:
     static_configs:
       - targets:
           - MONITORING-IP:9100
+
+  - job_name: "docker"
+
+    static_configs:
+      - targets:
+          - DOCKER-IP:9100
 ```
 
 Save:
